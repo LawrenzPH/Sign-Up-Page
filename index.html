@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,10 +67,20 @@
   </div>
 
   <script>
-    
+
     document.getElementById('signupButton').addEventListener('click', function (event) {
-      event.preventDefault();
-      alert('Account created!');
+      const form = document.querySelector('.needs-validation');
+
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+        form.classList.add('was-validated');
+      } else {
+        event.preventDefault();
+        alert('Account created!');
+        form.reset();
+        form.classList.remove('was-validated');
+      }
     });
     (function () {
       'use strict';
@@ -78,21 +89,21 @@
       const confirmPassword = document.getElementById('confirmPassword');
       const confirmFeedback = document.getElementById('confirmPasswordFeedback');
       const signupButton = document.getElementById('signupButton');
-      
+
       confirmPassword.addEventListener('input', function () {
-  if (confirmPassword.value.trim() === "") {
-    confirmPassword.classList.remove("is-invalid", "is-valid");
-    confirmFeedback.textContent = "";
-  } else if (password.value !== confirmPassword.value) {
-    confirmPassword.classList.add("is-invalid");
-    confirmPassword.classList.remove("is-valid");
-    confirmFeedback.textContent = "Passwords do not match.";
-  } else {
-    confirmPassword.classList.add("is-valid");
-    confirmPassword.classList.remove("is-invalid");
-    confirmFeedback.textContent = "";
-  }
-});
+        if (confirmPassword.value.trim() === "") {
+          confirmPassword.classList.remove("is-invalid", "is-valid");
+          confirmFeedback.textContent = "";
+        } else if (password.value !== confirmPassword.value) {
+          confirmPassword.classList.add("is-invalid");
+          confirmPassword.classList.remove("is-valid");
+          confirmFeedback.textContent = "Passwords do not match.";
+        } else {
+          confirmPassword.classList.add("is-valid");
+          confirmPassword.classList.remove("is-invalid");
+          confirmFeedback.textContent = "";
+        }
+      });
 
       form.addEventListener('submit', function (event) {
         if (!form.checkValidity() || password.value !== confirmPassword.value) {
@@ -104,4 +115,5 @@
     })();
   </script>
 </body>
+
 </html>
